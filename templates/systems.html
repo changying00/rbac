@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>系统管理 - RBAC 权限管理平台</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <nav id="sidebar" class="sidebar"></nav>
+
+  <div class="main-wrapper">
+    <header id="topbar" class="topbar"></header>
+
+    <main class="page-content">
+      <div class="page-header">
+        <div>
+          <h4>系统管理</h4>
+          <p class="page-desc">资源管理 · 系统级资源节点，是模块与功能的顶层归属</p>
+        </div>
+        <div class="page-actions">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-demo="刷新">
+            <i class="bi bi-arrow-clockwise me-1"></i>刷新
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#systemModal">
+            <i class="bi bi-plus-lg me-1"></i>新增系统
+          </button>
+        </div>
+      </div>
+
+      <div class="row g-3 mb-3">
+        <div class="col-md-4 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon bg-primary-soft"><i class="bi bi-window-desktop"></i></div>
+            <div>
+              <div class="stat-value">6</div>
+              <div class="stat-label">系统总数</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon bg-success-soft"><i class="bi bi-check-circle"></i></div>
+            <div>
+              <div class="stat-value">5</div>
+              <div class="stat-label">启用中</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon bg-warning-soft"><i class="bi bi-box"></i></div>
+            <div>
+              <div class="stat-value">28</div>
+              <div class="stat-label">关联模块</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">系统列表</div>
+          <input type="text" class="form-control form-control-sm" style="max-width:220px" placeholder="搜索系统名称 / 编码">
+        </div>
+        <div class="card-body pt-2">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>系统名称</th>
+                  <th>系统编码</th>
+                  <th>图标</th>
+                  <th>域名 / 备注</th>
+                  <th>模块数</th>
+                  <th>状态</th>
+                  <th>排序</th>
+                  <th width="160">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="fw-semibold">RBAC 权限平台</td>
+                  <td><code>rbac</code></td>
+                  <td><i class="bi bi-shield-lock text-primary fs-5"></i></td>
+                  <td class="text-muted">权限与账号中枢</td>
+                  <td>8</td>
+                  <td><span class="badge badge-status text-bg-success">启用</span></td>
+                  <td>10</td>
+                  <td class="row-actions">
+                    <button class="btn btn-outline-primary btn-sm" data-demo="编辑系统">编辑</button>
+                    <button class="btn btn-outline-secondary btn-sm" data-demo="查看模块">模块</button>
+                    <button class="btn btn-outline-danger btn-sm" data-demo="删除系统">删除</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="fw-semibold">运营管理系统</td>
+                  <td><code>operation</code></td>
+                  <td><i class="bi bi-clipboard-data text-success fs-5"></i></td>
+                  <td class="text-muted">活动 / 工单 / 客服</td>
+                  <td>6</td>
+                  <td><span class="badge badge-status text-bg-success">启用</span></td>
+                  <td>20</td>
+                  <td class="row-actions">
+                    <button class="btn btn-outline-primary btn-sm" data-demo="编辑系统">编辑</button>
+                    <button class="btn btn-outline-secondary btn-sm" data-demo="查看模块">模块</button>
+                    <button class="btn btn-outline-danger btn-sm" data-demo="删除系统">删除</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="fw-semibold">订单中心</td>
+                  <td><code>order</code></td>
+                  <td><i class="bi bi-cart3 text-warning fs-5"></i></td>
+                  <td class="text-muted">订单全生命周期</td>
+                  <td>5</td>
+                  <td><span class="badge badge-status text-bg-success">启用</span></td>
+                  <td>30</td>
+                  <td class="row-actions">
+                    <button class="btn btn-outline-primary btn-sm" data-demo="编辑系统">编辑</button>
+                    <button class="btn btn-outline-secondary btn-sm" data-demo="查看模块">模块</button>
+                    <button class="btn btn-outline-danger btn-sm" data-demo="删除系统">删除</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="fw-semibold">财务系统</td>
+                  <td><code>finance</code></td>
+                  <td><i class="bi bi-currency-yen text-danger fs-5"></i></td>
+                  <td class="text-muted">结算 / 发票 / 报表</td>
+                  <td>4</td>
+                  <td><span class="badge badge-status text-bg-success">启用</span></td>
+                  <td>40</td>
+                  <td class="row-actions">
+                    <button class="btn btn-outline-primary btn-sm" data-demo="编辑系统">编辑</button>
+                    <button class="btn btn-outline-secondary btn-sm" data-demo="查看模块">模块</button>
+                    <button class="btn btn-outline-danger btn-sm" data-demo="删除系统">删除</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="fw-semibold">人力资源系统</td>
+                  <td><code>hr</code></td>
+                  <td><i class="bi bi-person-vcard text-info fs-5"></i></td>
+                  <td class="text-muted">考勤 / 薪酬 / 招聘</td>
+                  <td>3</td>
+                  <td><span class="badge badge-status text-bg-success">启用</span></td>
+                  <td>50</td>
+                  <td class="row-actions">
+                    <button class="btn btn-outline-primary btn-sm" data-demo="编辑系统">编辑</button>
+                    <button class="btn btn-outline-secondary btn-sm" data-demo="查看模块">模块</button>
+                    <button class="btn btn-outline-danger btn-sm" data-demo="删除系统">删除</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="fw-semibold">数据分析平台</td>
+                  <td><code>bi</code></td>
+                  <td><i class="bi bi-bar-chart-line text-purple fs-5"></i></td>
+                  <td class="text-muted">大屏与报表（建设中）</td>
+                  <td>2</td>
+                  <td><span class="badge badge-status text-bg-secondary">停用</span></td>
+                  <td>60</td>
+                  <td class="row-actions">
+                    <button class="btn btn-outline-primary btn-sm" data-demo="编辑系统">编辑</button>
+                    <button class="btn btn-outline-secondary btn-sm" data-demo="查看模块">模块</button>
+                    <button class="btn btn-outline-danger btn-sm" data-demo="删除系统">删除</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-body pt-0">
+          <div class="pagination-wrap">
+            <div class="page-info">共 6 条系统记录</div>
+            <nav>
+              <ul class="pagination pagination-sm mb-0">
+                <li class="page-item disabled"><span class="page-link">上一页</span></li>
+                <li class="page-item active"><span class="page-link">1</span></li>
+                <li class="page-item disabled"><span class="page-link">下一页</span></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal fade" id="systemModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <form class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">新增系统</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">系统名称 <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" placeholder="请输入系统名称" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">系统编码 <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" placeholder="英文编码，如 order" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">图标</label>
+              <input type="text" class="form-control" placeholder="如 bi-window-desktop">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">访问域名</label>
+              <input type="text" class="form-control" placeholder="https://order.demo.com">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">排序</label>
+              <input type="number" class="form-control" value="10">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">状态</label>
+              <select class="form-select">
+                <option selected>启用</option>
+                <option>停用</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-label">备注</label>
+              <textarea class="form-control" rows="2" placeholder="系统说明"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary">保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

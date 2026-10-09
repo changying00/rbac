@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>字典管理 - RBAC 权限管理平台</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <nav id="sidebar" class="sidebar"></nav>
+
+  <div class="main-wrapper">
+    <header id="topbar" class="topbar"></header>
+
+    <main class="page-content">
+      <div class="page-header">
+        <div>
+          <h4>字典管理</h4>
+          <p class="page-desc">系统管理 · 维护下拉框、状态枚举等公共字典数据</p>
+        </div>
+        <div class="page-actions">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-demo="刷新">
+            <i class="bi bi-arrow-clockwise me-1"></i>刷新
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#dictTypeModal">
+            <i class="bi bi-plus-lg me-1"></i>新增字典类型
+          </button>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <!-- 字典类型 -->
+        <div class="col-lg-4">
+          <div class="card h-100">
+            <div class="card-header">
+              <div class="card-title">字典类型</div>
+              <input type="text" class="form-control form-control-sm" style="max-width:140px" placeholder="搜索类型">
+            </div>
+            <div class="card-body pt-2 pb-2">
+              <div class="list-group list-group-flush" style="max-height:560px; overflow:auto">
+                <a href="#" class="list-group-item list-group-item-action active">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <div class="fw-semibold">订单状态</div>
+                      <small class="opacity-75">order_status</small>
+                    </div>
+                    <span class="badge bg-white text-primary">5 项</span>
+                  </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <div class="fw-semibold">用户状态</div>
+                      <small class="text-muted">user_status</small>
+                    </div>
+                    <span class="badge text-bg-light border">3 项</span>
+                  </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <div class="fw-semibold">角色状态</div>
+                      <small class="text-muted">role_status</small>
+                    </div>
+                    <span class="badge text-bg-light border">2 项</span>
+                  </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <div class="fw-semibold">支付方式</div>
+                      <small class="text-muted">pay_type</small>
+                    </div>
+                    <span class="badge text-bg-light border">4 项</span>
+                  </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <div class="fw-semibold">数据范围</div>
+                      <small class="text-muted">data_scope</small>
+                    </div>
+                    <span class="badge text-bg-light border">5 项</span>
+                  </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <div class="fw-semibold">日志类型</div>
+                      <small class="text-muted">log_type</small>
+                    </div>
+                    <span class="badge text-bg-light border">6 项</span>
+                  </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <div class="fw-semibold">系统状态</div>
+                      <small class="text-muted">sys_status</small>
+                    </div>
+                    <span class="badge text-bg-light border">2 项</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 字典数据 -->
+        <div class="col-lg-8">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">字典数据 · 订单状态 <code class="ms-1 small">order_status</code></div>
+              <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#dictDataModal">
+                <i class="bi bi-plus-lg me-1"></i>新增字典项
+              </button>
+            </div>
+            <div class="card-body pt-2">
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                  <thead>
+                    <tr>
+                      <th>字典标签</th>
+                      <th>字典键值</th>
+                      <th>样式属性</th>
+                      <th>排序</th>
+                      <th>状态</th>
+                      <th>备注</th>
+                      <th width="150">操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <span class="badge text-bg-primary">待付款</span>
+                      </td>
+                      <td><code>0</code></td>
+                      <td>primary</td>
+                      <td>1</td>
+                      <td><span class="badge badge-status text-bg-success">正常</span></td>
+                      <td class="text-muted">下单未支付</td>
+                      <td class="row-actions">
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#dictDataModal">编辑</button>
+                        <button class="btn btn-outline-danger btn-sm" data-demo="删除字典项">删除</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="badge text-bg-warning">待发货</span>
+                      </td>
+                      <td><code>1</code></td>
+                      <td>warning</td>
+                      <td>2</td>
+                      <td><span class="badge badge-status text-bg-success">正常</span></td>
+                      <td class="text-muted">已支付待出库</td>
+                      <td class="row-actions">
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#dictDataModal">编辑</button>
+                        <button class="btn btn-outline-danger btn-sm" data-demo="删除字典项">删除</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="badge text-bg-info">待收货</span>
+                      </td>
+                      <td><code>2</code></td>
+                      <td>info</td>
+                      <td>3</td>
+                      <td><span class="badge badge-status text-bg-success">正常</span></td>
+                      <td class="text-muted">物流配送中</td>
+                      <td class="row-actions">
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#dictDataModal">编辑</button>
+                        <button class="btn btn-outline-danger btn-sm" data-demo="删除字典项">删除</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="badge text-bg-success">已完成</span>
+                      </td>
+                      <td><code>3</code></td>
+                      <td>success</td>
+                      <td>4</td>
+                      <td><span class="badge badge-status text-bg-success">正常</span></td>
+                      <td class="text-muted">交易结束</td>
+                      <td class="row-actions">
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#dictDataModal">编辑</button>
+                        <button class="btn btn-outline-danger btn-sm" data-demo="删除字典项">删除</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="badge text-bg-danger">已取消</span>
+                      </td>
+                      <td><code>4</code></td>
+                      <td>danger</td>
+                      <td>5</td>
+                      <td><span class="badge badge-status text-bg-success">正常</span></td>
+                      <td class="text-muted">用户或系统取消</td>
+                      <td class="row-actions">
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#dictDataModal">编辑</button>
+                        <button class="btn btn-outline-danger btn-sm" data-demo="删除字典项">删除</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card-body pt-0">
+              <div class="pagination-wrap">
+                <div class="page-info">共 5 条字典数据</div>
+                <nav>
+                  <ul class="pagination pagination-sm mb-0">
+                    <li class="page-item disabled"><span class="page-link">上一页</span></li>
+                    <li class="page-item active"><span class="page-link">1</span></li>
+                    <li class="page-item disabled"><span class="page-link">下一页</span></li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- 新增字典类型 -->
+  <div class="modal fade" id="dictTypeModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <form class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">新增字典类型</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">类型名称 <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" placeholder="如 订单状态" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">类型编码 <span class="text-danger">*</span></label>
+              <input type="text" class="form-control font-monospace" placeholder="如 order_status" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">状态</label>
+              <select class="form-select">
+                <option selected>正常</option>
+                <option>停用</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">备注</label>
+              <input type="text" class="form-control" placeholder="字典用途说明">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary">保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 新增字典项 -->
+  <div class="modal fade" id="dictDataModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <form class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">新增 / 编辑字典项</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">字典类型</label>
+              <select class="form-select">
+                <option selected>订单状态（order_status）</option>
+                <option>用户状态（user_status）</option>
+                <option>支付方式（pay_type）</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">字典标签 <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" placeholder="显示名称" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">字典键值 <span class="text-danger">*</span></label>
+              <input type="text" class="form-control font-monospace" placeholder="存储值" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">样式属性</label>
+              <select class="form-select">
+                <option>primary</option>
+                <option>success</option>
+                <option>danger</option>
+                <option>warning</option>
+                <option>info</option>
+                <option>secondary</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">排序</label>
+              <input type="number" class="form-control" value="0">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">状态</label>
+              <select class="form-select">
+                <option selected>正常</option>
+                <option>停用</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-label">备注</label>
+              <textarea class="form-control" rows="2"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary">保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

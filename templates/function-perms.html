@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>功能权限 - RBAC 权限管理平台</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <nav id="sidebar" class="sidebar"></nav>
+
+  <div class="main-wrapper">
+    <header id="topbar" class="topbar"></header>
+
+    <main class="page-content">
+      <div class="page-header">
+        <div>
+          <h4>功能权限</h4>
+          <p class="page-desc">权限管理 · 将资源 / 功能 / 按钮授权给角色</p>
+        </div>
+        <div class="page-actions">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-demo="刷新">
+            <i class="bi bi-arrow-clockwise me-1"></i>刷新
+          </button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-demo="展开全部">
+            <i class="bi bi-arrows-expand me-1"></i>展开
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" data-demo="保存授权">
+            <i class="bi bi-save me-1"></i>保存授权
+          </button>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <!-- 角色选择 -->
+        <div class="col-lg-3">
+          <div class="card h-100">
+            <div class="card-header">
+              <div class="card-title">选择角色</div>
+            </div>
+            <div class="card-body pt-2 pb-2">
+              <input type="text" class="form-control form-control-sm mb-2" placeholder="搜索角色">
+              <div class="list-group list-group-flush" style="max-height:480px; overflow:auto">
+                <a href="#" class="list-group-item list-group-item-action active">
+                  <div class="fw-semibold">超级管理员</div>
+                  <small class="opacity-75">super_admin · 全部权限</small>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                  <div class="fw-semibold">系统管理员</div>
+                  <small class="text-muted">sys_admin</small>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                  <div class="fw-semibold">运营专员</div>
+                  <small class="text-muted">ops_user</small>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                  <div class="fw-semibold">财务审核</div>
+                  <small class="text-muted">finance_audit</small>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                  <div class="fw-semibold">开发工程师</div>
+                  <small class="text-muted">dev_engineer</small>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                  <div class="fw-semibold">人事专员</div>
+                  <small class="text-muted">hr_user</small>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 权限树 -->
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header">
+              <div class="card-title">资源权限树</div>
+              <div class="d-flex gap-2">
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-demo="全选">全选</button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-demo="清空">清空</button>
+              </div>
+            </div>
+            <div class="card-body pt-2 pb-2">
+              <div class="perm-tree">
+                <div class="tree-item lv-0"><input class="form-check-input" type="checkbox" checked> RBAC 权限平台 <span class="code">rbac</span></div>
+                <div class="tree-item lv-1"><input class="form-check-input" type="checkbox" checked> 用户中心 <span class="code">user-center</span></div>
+                <div class="tree-item lv-2"><input class="form-check-input" type="checkbox" checked> 用户查询 <span class="code">sys:user:query</span></div>
+                <div class="tree-item lv-2"><input class="form-check-input" type="checkbox" checked> 用户新增 <span class="code">sys:user:add</span></div>
+                <div class="tree-item lv-2"><input class="form-check-input" type="checkbox" checked> 用户修改 <span class="code">sys:user:edit</span></div>
+                <div class="tree-item lv-2"><input class="form-check-input" type="checkbox" checked> 用户删除 <span class="code">sys:user:remove</span></div>
+                <div class="tree-item lv-1"><input class="form-check-input" type="checkbox" checked> 角色管理 <span class="code">role-center</span></div>
+                <div class="tree-item lv-2"><input class="form-check-input" type="checkbox" checked> 角色查询 <span class="code">sys:role:query</span></div>
+                <div class="tree-item lv-2"><input class="form-check-input" type="checkbox" checked> 角色授权 <span class="code">sys:role:auth</span></div>
+                <div class="tree-item lv-1"><input class="form-check-input" type="checkbox"> 资源中心 <span class="code">resource-center</span></div>
+                <div class="tree-item lv-2"><input class="form-check-input" type="checkbox" checked> 系统管理 <span class="code">sys:system:list</span></div>
+                <div class="tree-item lv-2"><input class="form-check-input" type="checkbox" checked> 模块管理 <span class="code">sys:module:list</span></div>
+                <div class="tree-item lv-2"><input class="form-check-input" type="checkbox" checked> 功能管理 <span class="code">sys:func:list</span></div>
+                <div class="tree-item lv-0"><input class="form-check-input" type="checkbox" checked> 订单中心 <span class="code">order</span></div>
+                <div class="tree-item lv-1"><input class="form-check-input" type="checkbox" checked> 订单模块 <span class="code">order</span></div>
+                <div class="tree-item lv-2"><input class="form-check-input" type="checkbox" checked> 订单列表页 <span class="code">order:list:page</span></div>
+                <div class="tree-item lv-2"><input class="form-check-input" type="checkbox" checked> 订单导出 <span class="code">order:export</span></div>
+                <div class="tree-item lv-2"><input class="form-check-input" type="checkbox" checked> 订单删除 <span class="code">order:remove</span></div>
+                <div class="tree-item lv-0"><input class="form-check-input" type="checkbox" checked> 运营管理系统 <span class="code">operation</span></div>
+                <div class="tree-item lv-1"><input class="form-check-input" type="checkbox" checked> 活动模块 <span class="code">campaign</span></div>
+                <div class="tree-item lv-2"><input class="form-check-input" type="checkbox" checked> 活动创建 <span class="code">campaign:create</span></div>
+                <div class="tree-item lv-2"><input class="form-check-input" type="checkbox" checked> 活动列表 <span class="code">campaign:list</span></div>
+                <div class="tree-item lv-1"><input class="form-check-input" type="checkbox"> 客服模块 <span class="code">service</span></div>
+                <div class="tree-item lv-0"><input class="form-check-input" type="checkbox"> 财务系统 <span class="code">finance</span></div>
+                <div class="tree-item lv-1"><input class="form-check-input" type="checkbox"> 结算模块 <span class="code">settle</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 已授权概况 -->
+        <div class="col-lg-3">
+          <div class="card h-100">
+            <div class="card-header">
+              <div class="card-title">授权概况</div>
+              <span class="badge text-bg-primary">超级管理员</span>
+            </div>
+            <div class="card-body">
+              <div class="mb-3">
+                <div class="d-flex justify-content-between small mb-1">
+                  <span class="text-muted">功能授权覆盖率</span>
+                  <strong>86%</strong>
+                </div>
+                <div class="progress" style="height:8px">
+                  <div class="progress-bar bg-primary" style="width:86%"></div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <div class="d-flex justify-content-between small mb-1">
+                  <span class="text-muted">按钮授权覆盖率</span>
+                  <strong>72%</strong>
+                </div>
+                <div class="progress" style="height:8px">
+                  <div class="progress-bar bg-success" style="width:72%"></div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <div class="d-flex justify-content-between small mb-1">
+                  <span class="text-muted">菜单授权覆盖率</span>
+                  <strong>90%</strong>
+                </div>
+                <div class="progress" style="height:8px">
+                  <div class="progress-bar bg-warning" style="width:90%"></div>
+                </div>
+              </div>
+              <hr>
+              <div class="small text-muted mb-2">已选资源节点</div>
+              <div class="d-flex flex-wrap gap-1 mb-3">
+                <span class="badge text-bg-light border">rbac</span>
+                <span class="badge text-bg-light border">user-center</span>
+                <span class="badge text-bg-light border">role-center</span>
+                <span class="badge text-bg-light border">order</span>
+                <span class="badge text-bg-light border">campaign</span>
+                <span class="badge text-bg-primary">+ 12</span>
+              </div>
+              <div class="alert alert-light border small mb-0">
+                <i class="bi bi-lightbulb text-warning me-1"></i>
+                保存后角色用户将在下次登录或刷新权限时生效。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

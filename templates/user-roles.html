@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>用户角色 - RBAC 权限管理平台</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <nav id="sidebar" class="sidebar"></nav>
+
+  <div class="main-wrapper">
+    <header id="topbar" class="topbar"></header>
+
+    <main class="page-content">
+      <div class="page-header">
+        <div>
+          <h4>用户角色</h4>
+          <p class="page-desc">为用户分配一个或多个角色，实现基于角色的访问控制</p>
+        </div>
+        <div class="page-actions">
+          <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#assignModal">
+            <i class="bi bi-person-plus me-1"></i>分配角色
+          </button>
+        </div>
+      </div>
+
+      <div class="row g-3 mb-3">
+        <div class="col-lg-7">
+          <div class="card h-100">
+            <div class="card-header">
+              <div class="card-title">用户角色对照</div>
+              <input type="text" class="form-control form-control-sm" style="max-width:200px" placeholder="搜索用户">
+            </div>
+            <div class="card-body pt-2">
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                  <thead>
+                    <tr>
+                      <th>用户</th>
+                      <th>账号</th>
+                      <th>已分配角色</th>
+                      <th width="90">操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="user-cell">
+                          <span class="avatar av-blue">张</span>
+                          <div><div class="name">张伟</div><div class="sub">技术中心</div></div>
+                        </div>
+                      </td>
+                      <td>zhangwei</td>
+                      <td>
+                        <span class="badge text-bg-primary me-1">超级管理员</span>
+                        <span class="badge text-bg-light border">运维</span>
+                      </td>
+                      <td>
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#assignModal">调整</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="user-cell">
+                          <span class="avatar av-green">李</span>
+                          <div><div class="name">李娜</div><div class="sub">运营中心</div></div>
+                        </div>
+                      </td>
+                      <td>lina</td>
+                      <td>
+                        <span class="badge text-bg-info me-1">运营专员</span>
+                      </td>
+                      <td>
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#assignModal">调整</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="user-cell">
+                          <span class="avatar av-orange">王</span>
+                          <div><div class="name">王芳</div><div class="sub">财务部</div></div>
+                        </div>
+                      </td>
+                      <td>wangfang</td>
+                      <td>
+                        <span class="badge text-bg-warning me-1">财务审核</span>
+                      </td>
+                      <td>
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#assignModal">调整</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="user-cell">
+                          <span class="avatar av-purple">陈</span>
+                          <div><div class="name">陈杰</div><div class="sub">技术中心</div></div>
+                        </div>
+                      </td>
+                      <td>chenjie</td>
+                      <td>
+                        <span class="badge text-bg-light border me-1">开发工程师</span>
+                        <span class="badge text-bg-light border">运维</span>
+                      </td>
+                      <td>
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#assignModal">调整</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="user-cell">
+                          <span class="avatar">赵</span>
+                          <div><div class="name">赵敏</div><div class="sub">人力资源部</div></div>
+                        </div>
+                      </td>
+                      <td>zhaomin</td>
+                      <td>
+                        <span class="badge text-bg-light border">人事专员</span>
+                      </td>
+                      <td>
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#assignModal">调整</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="user-cell">
+                          <span class="avatar av-blue">孙</span>
+                          <div><div class="name">孙强</div><div class="sub">运营中心</div></div>
+                        </div>
+                      </td>
+                      <td>sunqiang</td>
+                      <td>
+                        <span class="badge text-bg-info me-1">运营专员</span>
+                        <span class="badge text-bg-light border">客服</span>
+                      </td>
+                      <td>
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#assignModal">调整</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card-body pt-0">
+              <div class="pagination-wrap">
+                <div class="page-info">共 6 个用户（示例数据）</div>
+                <nav>
+                  <ul class="pagination pagination-sm mb-0">
+                    <li class="page-item disabled"><span class="page-link">上一页</span></li>
+                    <li class="page-item active"><span class="page-link">1</span></li>
+                    <li class="page-item disabled"><span class="page-link">下一页</span></li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="card h-100">
+            <div class="card-header">
+              <div class="card-title"><i class="bi bi-diagram-2 me-2"></i>分配说明</div>
+            </div>
+            <div class="card-body">
+              <div class="alert alert-light border mb-3">
+                <div class="fw-semibold mb-1"><i class="bi bi-lightbulb me-1 text-warning"></i>RBAC 原理</div>
+                <div class="small text-muted mb-0">用户不直接拥有权限，而是通过 <strong>角色</strong> 间接获得功能权限与数据权限。调整用户角色即可改变其访问范围。</div>
+              </div>
+              <ul class="list-unstyled small text-muted mb-0">
+                <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>一个用户可拥有多个角色，权限取并集</li>
+                <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>角色与资源、功能、按钮建立授权关系</li>
+                <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>数据权限决定用户可见的数据范围</li>
+                <li class="mb-0"><i class="bi bi-check-circle text-success me-2"></i>菜单根据用户权限动态渲染</li>
+              </ul>
+              <hr>
+              <div class="d-grid">
+                <button type="button" class="btn btn-outline-primary btn-sm" data-demo="权限模拟">
+                  <i class="bi bi-play-circle me-1"></i>权限模拟校验
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- 分配角色 -->
+  <div class="modal fade" id="assignModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <form class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-person-check me-2 text-primary"></i>分配用户角色</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">选择用户 <span class="text-danger">*</span></label>
+              <select class="form-select" required>
+                <option value="">请选择用户</option>
+                <option selected>张伟（zhangwei）</option>
+                <option>李娜（lina）</option>
+                <option>王芳（wangfang）</option>
+                <option>陈杰（chenjie）</option>
+                <option>赵敏（zhaomin）</option>
+                <option>孙强（sunqiang）</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">生效方式</label>
+              <select class="form-select">
+                <option>覆盖原有角色</option>
+                <option selected>追加角色</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-label">角色列表</label>
+              <div class="border rounded p-2" style="max-height:220px; overflow:auto">
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="r1" checked>
+                  <label class="form-check-label" for="r1">超级管理员 <span class="text-muted small">（super_admin）</span></label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="r2">
+                  <label class="form-check-label" for="r2">系统管理员 <span class="text-muted small">（sys_admin）</span></label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="r3">
+                  <label class="form-check-label" for="r3">运营专员 <span class="text-muted small">（ops_user）</span></label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="r4">
+                  <label class="form-check-label" for="r4">财务审核 <span class="text-muted small">（finance_audit）</span></label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="r5">
+                  <label class="form-check-label" for="r5">开发工程师 <span class="text-muted small">（dev_engineer）</span></label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="r6">
+                  <label class="form-check-label" for="r6">运维 <span class="text-muted small">（ops_admin）</span></label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary">保存分配</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

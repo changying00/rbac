@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>工作台 - RBAC 权限管理平台</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <nav id="sidebar" class="sidebar"></nav>
+
+  <div class="main-wrapper">
+    <header id="topbar" class="topbar"></header>
+
+    <main class="page-content">
+      <div class="page-header">
+        <div>
+          <h4>工作台</h4>
+          <p class="page-desc">RBAC 权限管理平台总览 · 纯前端演示界面</p>
+        </div>
+        <div class="page-actions">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-demo="刷新">
+            <i class="bi bi-arrow-clockwise me-1"></i>刷新
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" data-demo="导出报表">
+            <i class="bi bi-download me-1"></i>导出报表
+          </button>
+        </div>
+      </div>
+
+      <!-- 统计卡片 -->
+      <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon bg-primary-soft"><i class="bi bi-people"></i></div>
+            <div>
+              <div class="stat-value">1,286</div>
+              <div class="stat-label">系统用户</div>
+              <div class="stat-trend up"><i class="bi bi-arrow-up-right"></i> 较上周 +3.2%</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon bg-success-soft"><i class="bi bi-person-badge"></i></div>
+            <div>
+              <div class="stat-value">48</div>
+              <div class="stat-label">角色数量</div>
+              <div class="stat-trend up"><i class="bi bi-arrow-up-right"></i> 新增 2 个</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon bg-warning-soft"><i class="bi bi-diagram-3"></i></div>
+            <div>
+              <div class="stat-value">356</div>
+              <div class="stat-label">资源节点</div>
+              <div class="stat-trend up"><i class="bi bi-arrow-up-right"></i> 系统 / 模块 / 功能</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon bg-danger-soft"><i class="bi bi-shield-lock"></i></div>
+            <div>
+              <div class="stat-value">12,403</div>
+              <div class="stat-label">今日登录</div>
+              <div class="stat-trend down"><i class="bi bi-arrow-down-right"></i> 较昨日 -1.5%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <!-- 趋势图 -->
+        <div class="col-lg-8">
+          <div class="card chart-card h-100">
+            <div class="card-header">
+              <div class="card-title"><i class="bi bi-bar-chart me-2 text-primary"></i>近 7 日登录与操作趋势</div>
+              <div class="btn-group btn-group-sm" role="group">
+                <button type="button" class="btn btn-outline-secondary active">登录</button>
+                <button type="button" class="btn btn-outline-secondary">操作</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <canvas id="loginChart" height="260"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- 最近动态 -->
+        <div class="col-lg-4">
+          <div class="card h-100">
+            <div class="card-header">
+              <div class="card-title"><i class="bi bi-activity me-2 text-success"></i>最近动态</div>
+              <a href="op-logs.html" class="btn btn-link btn-sm p-0 text-decoration-none">全部</a>
+            </div>
+            <div class="card-body pt-2 pb-2">
+              <div class="activity-item">
+                <span class="dot blue"></span>
+                <div>
+                  <div class="act-title">张伟 更新了角色「运营专员」的功能权限</div>
+                  <div class="act-meta">10 分钟前 · 权限管理</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <span class="dot green"></span>
+                <div>
+                  <div class="act-title">系统同步模块「订单中心」资源节点</div>
+                  <div class="act-meta">32 分钟前 · 资源管理</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <span class="dot orange"></span>
+                <div>
+                  <div class="act-title">李娜 为用户「王芳」分配角色</div>
+                  <div class="act-meta">1 小时前 · 用户管理</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <span class="dot red"></span>
+                <div>
+                  <div class="act-title">登录失败告警：账号 admin 连续失败 5 次</div>
+                  <div class="act-meta">2 小时前 · 登录日志</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <span class="dot blue"></span>
+                <div>
+                  <div class="act-title">字典「订单状态」新增枚举值</div>
+                  <div class="act-meta">3 小时前 · 系统管理</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 快捷入口 -->
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><i class="bi bi-grid me-2"></i>模块快捷入口</div>
+            </div>
+            <div class="card-body">
+              <div class="row g-3">
+                <div class="col-6 col-md-4 col-xl-2">
+                  <a href="users.html" class="d-block text-decoration-none text-center p-3 rounded-3 border h-100">
+                    <i class="bi bi-people fs-3 text-primary d-block mb-2"></i>
+                    <span class="fw-medium text-dark">用户管理</span>
+                    <div class="small text-muted mt-1">用户 / 角色 / 部门</div>
+                  </a>
+                </div>
+                <div class="col-6 col-md-4 col-xl-2">
+                  <a href="systems.html" class="d-block text-decoration-none text-center p-3 rounded-3 border h-100">
+                    <i class="bi bi-diagram-3 fs-3 text-success d-block mb-2"></i>
+                    <span class="fw-medium text-dark">资源管理</span>
+                    <div class="small text-muted mt-1">系统 / 模块 / 功能 / 按钮</div>
+                  </a>
+                </div>
+                <div class="col-6 col-md-4 col-xl-2">
+                  <a href="function-perms.html" class="d-block text-decoration-none text-center p-3 rounded-3 border h-100">
+                    <i class="bi bi-shield-check fs-3 text-warning d-block mb-2"></i>
+                    <span class="fw-medium text-dark">权限管理</span>
+                    <div class="small text-muted mt-1">功能权限 / 数据权限</div>
+                  </a>
+                </div>
+                <div class="col-6 col-md-4 col-xl-2">
+                  <a href="dynamic-menu.html" class="d-block text-decoration-none text-center p-3 rounded-3 border h-100">
+                    <i class="bi bi-menu-button-wide fs-3 text-info d-block mb-2"></i>
+                    <span class="fw-medium text-dark">菜单管理</span>
+                    <div class="small text-muted mt-1">动态菜单</div>
+                  </a>
+                </div>
+                <div class="col-6 col-md-4 col-xl-2">
+                  <a href="login-logs.html" class="d-block text-decoration-none text-center p-3 rounded-3 border h-100">
+                    <i class="bi bi-journal-text fs-3 text-danger d-block mb-2"></i>
+                    <span class="fw-medium text-dark">日志管理</span>
+                    <div class="small text-muted mt-1">登录 / 操作日志</div>
+                  </a>
+                </div>
+                <div class="col-6 col-md-4 col-xl-2">
+                  <a href="settings.html" class="d-block text-decoration-none text-center p-3 rounded-3 border h-100">
+                    <i class="bi bi-gear fs-3 text-secondary d-block mb-2"></i>
+                    <span class="fw-medium text-dark">系统管理</span>
+                    <div class="small text-muted mt-1">参数 / 字典 / 设置</div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    (function () {
+      var ctx = document.getElementById("loginChart");
+      if (!ctx || typeof Chart === "undefined") return;
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+          datasets: [
+            {
+              label: "登录次数",
+              data: [980, 1120, 1050, 1240, 1180, 620, 480],
+              backgroundColor: "rgba(59, 130, 246, .55)",
+              borderRadius: 6,
+              maxBarThickness: 36
+            },
+            {
+              label: "操作次数",
+              data: [2400, 2650, 2580, 2890, 2740, 1400, 980],
+              backgroundColor: "rgba(16, 185, 129, .45)",
+              borderRadius: 6,
+              maxBarThickness: 36
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: "bottom" }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: "#f1f5f9" },
+              ticks: { color: "#94a3b8", font: { size: 11 } }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { color: "#94a3b8", font: { size: 11 } }
+            }
+          }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

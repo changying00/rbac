@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>模块管理 - RBAC 权限管理平台</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <nav id="sidebar" class="sidebar"></nav>
+
+  <div class="main-wrapper">
+    <header id="topbar" class="topbar"></header>
+
+    <main class="page-content">
+      <div class="page-header">
+        <div>
+          <h4>模块管理</h4>
+          <p class="page-desc">资源管理 · 系统下的功能模块划分</p>
+        </div>
+        <div class="page-actions">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-demo="刷新">
+            <i class="bi bi-arrow-clockwise me-1"></i>刷新
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#moduleModal">
+            <i class="bi bi-plus-lg me-1"></i>新增模块
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">模块列表</div>
+          <div class="d-flex gap-2 flex-wrap">
+            <select class="form-select form-select-sm" style="width:auto">
+              <option value="">全部系统</option>
+              <option>RBAC 权限平台</option>
+              <option>运营管理系统</option>
+              <option>订单中心</option>
+              <option>财务系统</option>
+            </select>
+            <input type="text" class="form-control form-control-sm" style="width:180px" placeholder="搜索模块名称">
+          </div>
+        </div>
+        <div class="card-body pt-2">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>模块名称</th>
+                  <th>模块编码</th>
+                  <th>所属系统</th>
+                  <th>路由路径</th>
+                  <th>功能数</th>
+                  <th>状态</th>
+                  <th>排序</th>
+                  <th width="160">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="fw-semibold"><i class="bi bi-people me-2 text-primary"></i>用户中心</td>
+                  <td><code>user-center</code></td>
+                  <td>RBAC 权限平台</td>
+                  <td><code>/user/**</code></td>
+                  <td>6</td>
+                  <td><span class="badge badge-status text-bg-success">启用</span></td>
+                  <td>10</td>
+                  <td class="row-actions">
+                    <button class="btn btn-outline-primary btn-sm" data-demo="编辑模块">编辑</button>
+                    <button class="btn btn-outline-secondary btn-sm" data-demo="查看功能">功能</button>
+                    <button class="btn btn-outline-danger btn-sm" data-demo="删除模块">删除</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="fw-semibold"><i class="bi bi-diagram-3 me-2 text-success"></i>资源中心</td>
+                  <td><code>resource-center</code></td>
+                  <td>RBAC 权限平台</td>
+                  <td><code>/resource/**</code></td>
+                  <td>4</td>
+                  <td><span class="badge badge-status text-bg-success">启用</span></td>
+                  <td>20</td>
+                  <td class="row-actions">
+                    <button class="btn btn-outline-primary btn-sm" data-demo="编辑模块">编辑</button>
+                    <button class="btn btn-outline-secondary btn-sm" data-demo="查看功能">功能</button>
+                    <button class="btn btn-outline-danger btn-sm" data-demo="删除模块">删除</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="fw-semibold"><i class="bi bi-shield-check me-2 text-warning"></i>权限中心</td>
+                  <td><code>auth-center</code></td>
+                  <td>RBAC 权限平台</td>
+                  <td><code>/auth/**</code></td>
+                  <td>5</td>
+                  <td><span class="badge badge-status text-bg-success">启用</span></td>
+                  <td>30</td>
+                  <td class="row-actions">
+                    <button class="btn btn-outline-primary btn-sm" data-demo="编辑模块">编辑</button>
+                    <button class="btn btn-outline-secondary btn-sm" data-demo="查看功能">功能</button>
+                    <button class="btn btn-outline-danger btn-sm" data-demo="删除模块">删除</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="fw-semibold"><i class="bi bi-cart3 me-2 text-warning"></i>订单模块</td>
+                  <td><code>order</code></td>
+                  <td>订单中心</td>
+                  <td><code>/order/**</code></td>
+                  <td>8</td>
+                  <td><span class="badge badge-status text-bg-success">启用</span></td>
+                  <td>10</td>
+                  <td class="row-actions">
+                    <button class="btn btn-outline-primary btn-sm" data-demo="编辑模块">编辑</button>
+                    <button class="btn btn-outline-secondary btn-sm" data-demo="查看功能">功能</button>
+                    <button class="btn btn-outline-danger btn-sm" data-demo="删除模块">删除</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="fw-semibold"><i class="bi bi-ticket-perforated me-2 text-info"></i>活动模块</td>
+                  <td><code>campaign</code></td>
+                  <td>运营管理系统</td>
+                  <td><code>/campaign/**</code></td>
+                  <td>5</td>
+                  <td><span class="badge badge-status text-bg-success">启用</span></td>
+                  <td>20</td>
+                  <td class="row-actions">
+                    <button class="btn btn-outline-primary btn-sm" data-demo="编辑模块">编辑</button>
+                    <button class="btn btn-outline-secondary btn-sm" data-demo="查看功能">功能</button>
+                    <button class="btn btn-outline-danger btn-sm" data-demo="删除模块">删除</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="fw-semibold"><i class="bi bi-headset me-2 text-danger"></i>客服模块</td>
+                  <td><code>service</code></td>
+                  <td>运营管理系统</td>
+                  <td><code>/service/**</code></td>
+                  <td>4</td>
+                  <td><span class="badge badge-status text-bg-secondary">停用</span></td>
+                  <td>30</td>
+                  <td class="row-actions">
+                    <button class="btn btn-outline-primary btn-sm" data-demo="编辑模块">编辑</button>
+                    <button class="btn btn-outline-secondary btn-sm" data-demo="查看功能">功能</button>
+                    <button class="btn btn-outline-danger btn-sm" data-demo="删除模块">删除</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="fw-semibold"><i class="bi bi-cash-coin me-2 text-success"></i>结算模块</td>
+                  <td><code>settle</code></td>
+                  <td>财务系统</td>
+                  <td><code>/settle/**</code></td>
+                  <td>6</td>
+                  <td><span class="badge badge-status text-bg-success">启用</span></td>
+                  <td>10</td>
+                  <td class="row-actions">
+                    <button class="btn btn-outline-primary btn-sm" data-demo="编辑模块">编辑</button>
+                    <button class="btn btn-outline-secondary btn-sm" data-demo="查看功能">功能</button>
+                    <button class="btn btn-outline-danger btn-sm" data-demo="删除模块">删除</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-body pt-0">
+          <div class="pagination-wrap">
+            <div class="page-info">共 28 条模块记录，当前第 1/3 页</div>
+            <nav>
+              <ul class="pagination pagination-sm mb-0">
+                <li class="page-item disabled"><span class="page-link">上一页</span></li>
+                <li class="page-item active"><span class="page-link">1</span></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">下一页</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal fade" id="moduleModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <form class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">新增模块</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">所属系统 <span class="text-danger">*</span></label>
+              <select class="form-select" required>
+                <option value="">请选择系统</option>
+                <option>RBAC 权限平台</option>
+                <option>运营管理系统</option>
+                <option>订单中心</option>
+                <option>财务系统</option>
+                <option>人力资源系统</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">模块名称 <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" placeholder="请输入模块名称" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">模块编码 <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" placeholder="如 order" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">路由路径</label>
+              <input type="text" class="form-control" placeholder="/order/**">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">排序</label>
+              <input type="number" class="form-control" value="0">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">状态</label>
+              <select class="form-select">
+                <option selected>启用</option>
+                <option>停用</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-label">备注</label>
+              <textarea class="form-control" rows="2"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary">保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

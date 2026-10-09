@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>部门管理 - RBAC 权限管理平台</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <style>
+    .dept-tree {
+      border: 1px solid #e2e8f0;
+      border-radius: .6rem;
+      background: #fff;
+      max-height: 560px;
+      overflow: auto;
+    }
+    .dept-node {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .55rem .9rem;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 13.5px;
+      cursor: pointer;
+      transition: background .12s;
+    }
+    .dept-node:last-child { border-bottom: none; }
+    .dept-node:hover { background: #f8fafc; }
+    .dept-node.lv-0 { background: #f8fafc; font-weight: 600; color: #0f172a; }
+    .dept-node.lv-1 { padding-left: 1.75rem; }
+    .dept-node.lv-2 { padding-left: 2.95rem; color: #475569; font-weight: 400; }
+    .dept-node.active {
+      background: rgba(59, 130, 246, .1);
+      border-left: 3px solid #3b82f6;
+      color: #0f172a;
+      font-weight: 500;
+    }
+    .dept-node .dept-code {
+      font-family: Consolas, Monaco, monospace;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <nav id="sidebar" class="sidebar"></nav>
+
+  <div class="main-wrapper">
+    <header id="topbar" class="topbar"></header>
+
+    <main class="page-content">
+      <div class="page-header">
+        <div>
+          <h4>部门管理</h4>
+          <p class="page-desc">用户管理 · 维护组织架构树，支撑数据权限的部门过滤</p>
+        </div>
+        <div class="page-actions">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-demo="刷新">
+            <i class="bi bi-arrow-clockwise me-1"></i>刷新
+          </button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-demo="展开全部">
+            <i class="bi bi-arrows-expand me-1"></i>展开
+          </button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-demo="收起全部">
+            <i class="bi bi-arrows-collapse me-1"></i>收起
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#deptModal">
+            <i class="bi bi-plus-lg me-1"></i>新增部门
+          </button>
+        </div>
+      </div>
+
+      <div class="row g-3 mb-3">
+        <div class="col-md-3">
+          <div class="stat-card">
+            <div class="stat-icon bg-primary-soft"><i class="bi bi-diagram-2"></i></div>
+            <div>
+              <div class="stat-value">24</div>
+              <div class="stat-label">部门总数</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card">
+            <div class="stat-icon bg-success-soft"><i class="bi bi-building"></i></div>
+            <div>
+              <div class="stat-value">4</div>
+              <div class="stat-label">一级部门</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card">
+            <div class="stat-icon bg-warning-soft"><i class="bi bi-people"></i></div>
+            <div>
+              <div class="stat-value">1,286</div>
+              <div class="stat-label">在职人数</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card">
+            <div class="stat-icon bg-info-soft"><i class="bi bi-diagram-3"></i></div>
+            <div>
+              <div class="stat-value">5</div>
+              <div class="stat-label">组织层级</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <!-- 组织树 -->
+        <div class="col-lg-5">
+          <div class="card h-100">
+            <div class="card-header">
+              <div class="card-title">组织架构</div>
+              <input type="text" class="form-control form-control-sm" style="max-width:160px" placeholder="搜索部门">
+            </div>
+            <div class="card-body pt-2 pb-2">
+              <div class="dept-tree">
+                <div class="dept-node lv-0">
+                  <i class="bi bi-chevron-down text-muted"></i>
+                  <i class="bi bi-building text-primary"></i>
+                  <span class="node-name">科技集团总部</span>
+                  <span class="dept-code">ROOT</span>
+                  <span class="badge text-bg-light border ms-auto">1286 人</span>
+                </div>
+                <div class="dept-node lv-1">
+                  <i class="bi bi-chevron-down text-muted"></i>
+                  <i class="bi bi-people text-primary"></i>
+                  <span>技术中心</span>
+                  <span class="dept-code">tech</span>
+                  <span class="badge text-bg-light border ms-auto">420 人</span>
+                </div>
+                <div class="dept-node lv-2">
+                  <i class="bi bi-diagram-2 text-secondary"></i>
+                  <span>研发一部</span>
+                  <span class="dept-code">rd1</span>
+                  <span class="badge text-bg-light border ms-auto">186 人</span>
+                </div>
+                <div class="dept-node lv-2">
+                  <i class="bi bi-diagram-2 text-secondary"></i>
+                  <span>研发二部</span>
+                  <span class="dept-code">rd2</span>
+                  <span class="badge text-bg-light border ms-auto">142 人</span>
+                </div>
+                <div class="dept-node lv-2">
+                  <i class="bi bi-diagram-2 text-secondary"></i>
+                  <span>运维部</span>
+                  <span class="dept-code">ops</span>
+                  <span class="badge text-bg-light border ms-auto">92 人</span>
+                </div>
+                <div class="dept-node lv-1">
+                  <i class="bi bi-chevron-down text-muted"></i>
+                  <i class="bi bi-clipboard-data text-success"></i>
+                  <span>运营中心</span>
+                  <span class="dept-code">operation</span>
+                  <span class="badge text-bg-light border ms-auto">310 人</span>
+                </div>
+                <div class="dept-node lv-2">
+                  <i class="bi bi-diagram-2 text-secondary"></i>
+                  <span>活动运营组</span>
+                  <span class="dept-code">campaign</span>
+                  <span class="badge text-bg-light border ms-auto">86 人</span>
+                </div>
+                <div class="dept-node lv-2 active">
+                  <i class="bi bi-diagram-2 text-secondary"></i>
+                  <span>客服中心</span>
+                  <span class="dept-code">service</span>
+                  <span class="badge text-bg-light border ms-auto">154 人</span>
+                </div>
+                <div class="dept-node lv-1">
+                  <i class="bi bi-chevron-right text-muted"></i>
+                  <i class="bi bi-currency-yen text-danger"></i>
+                  <span>财务部</span>
+                  <span class="dept-code">finance</span>
+                  <span class="badge text-bg-light border ms-auto">86 人</span>
+                </div>
+                <div class="dept-node lv-1">
+                  <i class="bi bi-chevron-right text-muted"></i>
+                  <i class="bi bi-person-vcard text-info"></i>
+                  <span>人力资源部</span>
+                  <span class="dept-code">hr</span>
+                  <span class="badge text-bg-light border ms-auto">48 人</span>
+                </div>
+                <div class="dept-node lv-1">
+                  <i class="bi bi-chevron-right text-muted"></i>
+                  <i class="bi bi-bag text-warning"></i>
+                  <span>市场部</span>
+                  <span class="dept-code">market</span>
+                  <span class="badge text-bg-light border ms-auto">76 人</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 部门详情与列表 -->
+        <div class="col-lg-7">
+          <div class="card mb-3">
+            <div class="card-header">
+              <div class="card-title">部门详情 · 客服中心</div>
+              <div class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#deptModal">编辑</button>
+                <button type="button" class="btn btn-outline-secondary" data-demo="新增子部门">新增子部门</button>
+                <button type="button" class="btn btn-outline-danger" data-demo="删除部门">删除</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="text-muted small mb-1">部门名称</div>
+                  <div class="fw-semibold">客服中心</div>
+                </div>
+                <div class="col-md-6">
+                  <div class="text-muted small mb-1">部门编码</div>
+                  <div><code>service</code></div>
+                </div>
+                <div class="col-md-6">
+                  <div class="text-muted small mb-1">上级部门</div>
+                  <div>运营中心（operation）</div>
+                </div>
+                <div class="col-md-6">
+                  <div class="text-muted small mb-1">部门负责人</div>
+                  <div>孙强（sunqiang）</div>
+                </div>
+                <div class="col-md-6">
+                  <div class="text-muted small mb-1">排序 / 状态</div>
+                  <div>30 · <span class="badge badge-status text-bg-success">启用</span></div>
+                </div>
+                <div class="col-md-6">
+                  <div class="text-muted small mb-1">关联角色（示例）</div>
+                  <div>
+                    <span class="badge text-bg-info me-1">客服专员</span>
+                    <span class="badge text-bg-light border">客服主管</span>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="text-muted small mb-1">备注</div>
+                  <div class="text-body">负责在线客服、工单受理与售后跟进，数据权限范围通常为「本部门」。</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">下级部门 / 成员概况</div>
+              <div class="d-flex gap-2">
+                <select class="form-select form-select-sm" style="width:auto">
+                  <option>下级部门</option>
+                  <option>部门成员</option>
+                </select>
+                <input type="text" class="form-control form-control-sm" style="width:160px" placeholder="搜索">
+              </div>
+            </div>
+            <div class="card-body pt-2">
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                  <thead>
+                    <tr>
+                      <th>部门名称</th>
+                      <th>编码</th>
+                      <th>负责人</th>
+                      <th>人数</th>
+                      <th>状态</th>
+                      <th>排序</th>
+                      <th width="130">操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="fw-semibold"><i class="bi bi-diagram-2 me-2 text-secondary"></i>客服中心</td>
+                      <td><code>service</code></td>
+                      <td>孙强</td>
+                      <td>154</td>
+                      <td><span class="badge badge-status text-bg-success">启用</span></td>
+                      <td>30</td>
+                      <td class="row-actions">
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#deptModal">编辑</button>
+                        <button class="btn btn-outline-danger btn-sm" data-demo="删除部门">删除</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="fw-semibold"><i class="bi bi-diagram-2 me-2 text-secondary"></i>活动运营组</td>
+                      <td><code>campaign</code></td>
+                      <td>李娜</td>
+                      <td>86</td>
+                      <td><span class="badge badge-status text-bg-success">启用</span></td>
+                      <td>20</td>
+                      <td class="row-actions">
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#deptModal">编辑</button>
+                        <button class="btn btn-outline-danger btn-sm" data-demo="删除部门">删除</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="fw-semibold"><i class="bi bi-diagram-2 me-2 text-secondary"></i>用户增长组</td>
+                      <td><code>growth</code></td>
+                      <td>周涛</td>
+                      <td>68</td>
+                      <td><span class="badge badge-status text-bg-success">启用</span></td>
+                      <td>25</td>
+                      <td class="row-actions">
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#deptModal">编辑</button>
+                        <button class="btn btn-outline-danger btn-sm" data-demo="删除部门">删除</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="fw-semibold"><i class="bi bi-diagram-2 me-2 text-secondary"></i>内容运营组</td>
+                      <td><code>content</code></td>
+                      <td>吴静</td>
+                      <td>0</td>
+                      <td><span class="badge badge-status text-bg-secondary">停用</span></td>
+                      <td>40</td>
+                      <td class="row-actions">
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#deptModal">编辑</button>
+                        <button class="btn btn-outline-danger btn-sm" data-demo="删除部门">删除</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- 新增/编辑部门 -->
+  <div class="modal fade" id="deptModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <form class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-building-add me-2 text-primary"></i>新增部门</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">上级部门 <span class="text-danger">*</span></label>
+              <select class="form-select" required>
+                <option value="">请选择上级部门</option>
+                <option>科技集团总部（ROOT）</option>
+                <option>技术中心（tech）</option>
+                <option selected>运营中心（operation）</option>
+                <option>财务部（finance）</option>
+                <option>人力资源部（hr）</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">部门名称 <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" placeholder="请输入部门名称" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">部门编码 <span class="text-danger">*</span></label>
+              <input type="text" class="form-control font-monospace" placeholder="如 service" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">部门负责人</label>
+              <select class="form-select">
+                <option value="">请选择负责人</option>
+                <option>孙强（sunqiang）</option>
+                <option>李娜（lina）</option>
+                <option>张伟（zhangwei）</option>
+                <option>赵敏（zhaomin）</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">联系电话</label>
+              <input type="text" class="form-control" placeholder="部门对外电话（选填）">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">排序</label>
+              <input type="number" class="form-control" value="0">
+            </div>
+            <div class="col-12">
+              <label class="form-label">关联角色（数据权限常用）</label>
+              <div class="border rounded p-2" style="max-height:120px; overflow:auto">
+                <div class="form-check mb-1">
+                  <input class="form-check-input" type="checkbox" id="dr1">
+                  <label class="form-check-label" for="dr1">运营专员 <span class="text-muted small">（ops_user）</span></label>
+                </div>
+                <div class="form-check mb-1">
+                  <input class="form-check-input" type="checkbox" id="dr2" checked>
+                  <label class="form-check-label" for="dr2">客服专员 <span class="text-muted small">（service_user）</span></label>
+                </div>
+                <div class="form-check mb-1">
+                  <input class="form-check-input" type="checkbox" id="dr3">
+                  <label class="form-check-label" for="dr3">客服主管 <span class="text-muted small">（service_lead）</span></label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="dr4">
+                  <label class="form-check-label" for="dr4">系统管理员 <span class="text-muted small">（sys_admin）</span></label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">状态</label>
+              <select class="form-select">
+                <option selected>启用</option>
+                <option>停用</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-label">备注</label>
+              <textarea class="form-control" rows="2" placeholder="部门职责说明（选填）"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary">保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

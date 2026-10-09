@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>角色管理 - RBAC 权限管理平台</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <nav id="sidebar" class="sidebar"></nav>
+
+  <div class="main-wrapper">
+    <header id="topbar" class="topbar"></header>
+
+    <main class="page-content">
+      <div class="page-header">
+        <div>
+          <h4>角色管理</h4>
+          <p class="page-desc">定义系统角色及其数据范围，角色是权限承载的核心</p>
+        </div>
+        <div class="page-actions">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-demo="刷新">
+            <i class="bi bi-arrow-clockwise me-1"></i>刷新
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#roleModal">
+            <i class="bi bi-plus-lg me-1"></i>新增角色
+          </button>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <!-- 角色列表 -->
+        <div class="col-lg-7">
+          <div class="card h-100">
+            <div class="card-header">
+              <div class="card-title">角色列表</div>
+              <input type="text" class="form-control form-control-sm" style="max-width:200px" placeholder="搜索角色名称">
+            </div>
+            <div class="card-body pt-2">
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                  <thead>
+                    <tr>
+                      <th>角色名称</th>
+                      <th>角色编码</th>
+                      <th>数据范围</th>
+                      <th>用户数</th>
+                      <th>状态</th>
+                      <th width="120">操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="table-active">
+                      <td>
+                        <div class="fw-semibold">超级管理员</div>
+                        <small class="text-muted">拥有全部系统权限</small>
+                      </td>
+                      <td><code>super_admin</code></td>
+                      <td>全部数据</td>
+                      <td>2</td>
+                      <td><span class="badge badge-status text-bg-success">启用</span></td>
+                      <td class="row-actions">
+                        <button class="btn btn-outline-primary btn-sm" data-demo="编辑角色">编辑</button>
+                        <button class="btn btn-outline-danger btn-sm" data-demo="删除角色">删除</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="fw-semibold">系统管理员</div>
+                        <small class="text-muted">负责系统与权限配置</small>
+                      </td>
+                      <td><code>sys_admin</code></td>
+                      <td>本部门</td>
+                      <td>5</td>
+                      <td><span class="badge badge-status text-bg-success">启用</span></td>
+                      <td class="row-actions">
+                        <button class="btn btn-outline-primary btn-sm" data-demo="编辑角色">编辑</button>
+                        <button class="btn btn-outline-danger btn-sm" data-demo="删除角色">删除</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="fw-semibold">运营专员</div>
+                        <small class="text-muted">运营数据查看与处理</small>
+                      </td>
+                      <td><code>ops_user</code></td>
+                      <td>本人及下属</td>
+                      <td>36</td>
+                      <td><span class="badge badge-status text-bg-success">启用</span></td>
+                      <td class="row-actions">
+                        <button class="btn btn-outline-primary btn-sm" data-demo="编辑角色">编辑</button>
+                        <button class="btn btn-outline-danger btn-sm" data-demo="删除角色">删除</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="fw-semibold">财务审核</div>
+                        <small class="text-muted">财务单据审核权限</small>
+                      </td>
+                      <td><code>finance_audit</code></td>
+                      <td>本部门</td>
+                      <td>12</td>
+                      <td><span class="badge badge-status text-bg-success">启用</span></td>
+                      <td class="row-actions">
+                        <button class="btn btn-outline-primary btn-sm" data-demo="编辑角色">编辑</button>
+                        <button class="btn btn-outline-danger btn-sm" data-demo="删除角色">删除</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="fw-semibold">开发工程师</div>
+                        <small class="text-muted">研发相关资源访问</small>
+                      </td>
+                      <td><code>dev_engineer</code></td>
+                      <td>全部数据</td>
+                      <td>48</td>
+                      <td><span class="badge badge-status text-bg-success">启用</span></td>
+                      <td class="row-actions">
+                        <button class="btn btn-outline-primary btn-sm" data-demo="编辑角色">编辑</button>
+                        <button class="btn btn-outline-danger btn-sm" data-demo="删除角色">删除</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="fw-semibold">访客账号</div>
+                        <small class="text-muted">只读演示角色（已停用）</small>
+                      </td>
+                      <td><code>guest</code></td>
+                      <td>本人数据</td>
+                      <td>3</td>
+                      <td><span class="badge badge-status text-bg-secondary">停用</span></td>
+                      <td class="row-actions">
+                        <button class="btn btn-outline-primary btn-sm" data-demo="编辑角色">编辑</button>
+                        <button class="btn btn-outline-danger btn-sm" data-demo="删除角色">删除</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 角色详情 / 权限概览 -->
+        <div class="col-lg-5">
+          <div class="card h-100">
+            <div class="card-header">
+              <div class="card-title"><i class="bi bi-info-circle me-2"></i>角色详情</div>
+              <span class="badge text-bg-primary">运营专员</span>
+            </div>
+            <div class="card-body">
+              <div class="mb-3">
+                <div class="text-muted small mb-1">角色编码</div>
+                <div class="fw-medium"><code>ops_user</code></div>
+              </div>
+              <div class="mb-3">
+                <div class="text-muted small mb-1">数据权限范围</div>
+                <div><span class="badge text-bg-info">本人及下属</span></div>
+              </div>
+              <div class="mb-3">
+                <div class="text-muted small mb-1">排序 / 状态</div>
+                <div>20 · <span class="badge badge-status text-bg-success">启用</span></div>
+              </div>
+              <div class="mb-3">
+                <div class="text-muted small mb-1">备注</div>
+                <div class="text-body">负责日常运营数据的查看、处理与跟进，不包含系统配置权限。</div>
+              </div>
+              <div>
+                <div class="text-muted small mb-2">已授权功能（示例）</div>
+                <div class="d-flex flex-wrap gap-1">
+                  <span class="badge text-bg-light border">订单查看</span>
+                  <span class="badge text-bg-light border">订单处理</span>
+                  <span class="badge text-bg-light border">活动配置</span>
+                  <span class="badge text-bg-light border">数据导出</span>
+                  <span class="badge text-bg-light border">客服工单</span>
+                </div>
+              </div>
+              <hr>
+              <div class="d-grid gap-2">
+                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#permModal">
+                  <i class="bi bi-shield-check me-1"></i>配置功能权限
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-demo="配置数据权限">
+                  <i class="bi bi-funnel me-1"></i>配置数据权限
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- 新增/编辑角色 -->
+  <div class="modal fade" id="roleModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <form class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-person-badge me-2 text-primary"></i>新增角色</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">角色名称 <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" placeholder="请输入角色名称" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">角色编码 <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" placeholder="英文编码，如 role_xxx" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">数据权限范围</label>
+              <select class="form-select">
+                <option>全部数据</option>
+                <option>本部门</option>
+                <option selected>本人及下属</option>
+                <option>本人数据</option>
+                <option>自定义</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">状态</label>
+              <select class="form-select">
+                <option selected>启用</option>
+                <option>停用</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">排序</label>
+              <input type="number" class="form-control" value="0">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">上级角色（可选）</label>
+              <select class="form-select">
+                <option value="">无</option>
+                <option>系统管理员</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-label">备注</label>
+              <textarea class="form-control" rows="2" placeholder="角色用途说明"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary">保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 配置功能权限（简版） -->
+  <div class="modal fade" id="permModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <form class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">配置功能权限 · 运营专员</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p class="text-muted small mb-2">勾选该角色可访问的资源与功能（演示界面）。</p>
+          <div class="perm-tree">
+            <div class="tree-item lv-0"><input class="form-check-input" type="checkbox" checked disabled> 订单中心 <span class="code">order</span></div>
+            <div class="tree-item lv-1"><input class="form-check-input" type="checkbox" checked> 订单列表 <span class="code">order:list</span></div>
+            <div class="tree-item lv-2"><input class="form-check-input" type="checkbox" checked> 查看 <span class="code">order:view</span></div>
+            <div class="tree-item lv-2"><input class="form-check-input" type="checkbox" checked> 导出 <span class="code">order:export</span></div>
+            <div class="tree-item lv-2"><input class="form-check-input" type="checkbox"> 删除 <span class="code">order:delete</span></div>
+            <div class="tree-item lv-0"><input class="form-check-input" type="checkbox"> 用户中心 <span class="code">member</span></div>
+            <div class="tree-item lv-1"><input class="form-check-input" type="checkbox"> 会员管理 <span class="code">member:list</span></div>
+            <div class="tree-item lv-0"><input class="form-check-input" type="checkbox"> 系统管理 <span class="code">system</span></div>
+            <div class="tree-item lv-1"><input class="form-check-input" type="checkbox"> 用户管理 <span class="code">sys:user</span></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary">保存权限</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
