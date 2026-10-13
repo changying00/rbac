@@ -342,22 +342,21 @@
           // 获取 输入的验证码
           let captcha =  document.querySelector("#captcha").value;
           //获取 是否选中 记住我
-          let rememberMe = document.querySelector("#remeberMe").checked;
-
+          let rememberMe = document.querySelector("#rememberMe").checked;
 
           if(!username) {shakeField('username');return;}
           if(!password) {shakeField('password');return;}
-          
+          if(!captcha) {shakeField('captcha');return;}
           var btn = document.getElementById("btnLogin");
           btn.disabled = true;
           btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>登录中…';
           //发起 异步请求、调用接口 完成用户登录
-          axios.post('/login', {username,password,captchaKey,captcha,rememberMe},{
+          //axios 对普通对象会自动编码成 JSON、后端用 json.loads(request.body) 解析
+          axios.post('/login', {username,password,captchaKey,captcha,rememberMe:rememberMe ? "on" : "off"},{
             headers:{
-              "Content-Type":"application/x-www-form-urlencoded"
+               "Content-Type":"application/x-www-form-urlencoded"
             }
           }).then(response => {
-              // 跳转到 系统首页
               window.location.href = "/";
           }).catch(error => {
               btn.disabled = false;

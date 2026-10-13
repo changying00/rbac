@@ -142,3 +142,6 @@ MAILERS = {
 }
 
 AUTH_USER_MODEL = 'users.User'  # 指定 自定义的 User 模型
+
+#如果Session过期时间默认为 2 周、自动续约
+SESSION_SAVE_EVERY_REQUEST = True

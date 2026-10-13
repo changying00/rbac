@@ -20,7 +20,7 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path('^$', views.index_page, name='index'),
+    re_path('^$', views.index, name='index'),
 
     path("login",views.auth_login,name="login"),
   
