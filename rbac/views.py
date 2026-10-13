@@ -20,7 +20,7 @@ def index(request):
 def auth_login(request):
     if request.method == "GET":
         return render(request, "login.html")
-    #处理登录验证
+    #处理登录验证hjjjj
     username = request.POST.get("username")
     password = request.POST.get("password")
     captcha = request.POST.get("captcha")
